@@ -14,6 +14,9 @@ package io.swagger.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -21,6 +24,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
+import java.util.Random;
+
 /**
  * LiftRide
  */
@@ -32,6 +37,9 @@ public class LiftRide {
 
   @SerializedName("liftID")
   private Integer liftID = null;
+
+  public LiftRide(int skierId, int liftId, int time, int vertical) {
+  }
 
   public LiftRide time(Integer time) {
     this.time = time;
@@ -109,6 +117,18 @@ public class LiftRide {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
+  }
+
+  // generate a random LiftRide object as JSON string
+  public static String generateRandomLiftRideJson(int skierId, int liftId, int maxTime, int maxVertical) {
+    Random rand = new Random();
+    int time = rand.nextInt(maxTime) + 1;
+    int vertical = rand.nextInt(maxVertical) + 1;
+
+    LiftRide liftRide = new LiftRide(skierId, liftId, time, vertical);
+
+    Gson gson = new GsonBuilder().create();
+    return gson.toJson(liftRide);
   }
 
 }
